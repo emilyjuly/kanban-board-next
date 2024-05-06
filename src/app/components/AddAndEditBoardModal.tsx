@@ -56,8 +56,8 @@ export default function AddAndEditBoardModal() {
             if (isVariantAdd) {
                 setBoardData(addBoardData);
             } else {
-                const activeBoard = data[0].boards.find(
-                    (board: { name: string }): boolean => board.name === currentBoardTitle
+                const activeBoard = data.find(
+                    (board: { name: string }): boolean => board.boards.name === currentBoardTitle
                 );
                 setBoardData(activeBoard);
             }
@@ -213,7 +213,7 @@ export default function AddAndEditBoardModal() {
                                     Board Column
                                 </label>
                                 {boardData &&
-                                    boardData.columns.map(
+                                    boardData.boards.columns.map(
                                         (column: { name: string, id: string }, index: number) => {
                                             let { name, id } = column;
                                             return (

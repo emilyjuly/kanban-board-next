@@ -21,11 +21,11 @@ export default function Sidebar() {
             {data && (
                 <>
                     <p className="text-medium-grey pl-[2.12rem] text-[.95rem] font-semibold uppercase pb-3">
-                        {`All Boards (${data[0]?.boards.length})`}
+                        {`All Boards (${data.length})`}
                     </p>
-                    {data[0]?.boards.map(
+                    {data.map(
                         (board: { [key: string]: any }, index: number) => {
-                            const {name, id} = board;
+                            const {name, id} = board.boards;
                             const isActive = index === active;
                             return (
                                 <div

@@ -25,15 +25,12 @@ export default function BoardTasks() {
 
     useEffect(() => {
         if (data !== undefined) {
-            const [boards] = data;
-            if (boards) {
-                const activeBoardData = boards.boards.find(
-                    (board: { name: string }) => board.name === activeBoard
-                );
-                if (activeBoardData) {
-                    const { columns } = activeBoardData;
-                    setColumns(columns);
-                }
+            const activeBoardData = data.find(
+                (board: { name: string }) => board.boards.name === activeBoard
+            );
+            if (activeBoardData) {
+                const {columns} = activeBoardData.boards;
+                setColumns(columns);
             }
         }
     }, [data, activeBoard]);

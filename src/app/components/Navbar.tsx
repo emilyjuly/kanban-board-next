@@ -13,8 +13,11 @@ export default function Navbar() {
 
     useEffect(() => {
         if (data) {
-            const activeBoard = data[0].boards[0];
-            dispatch(setPageTitle(activeBoard.name));
+            console.log(data)
+            const activeBoard = data[0].boards;
+            if (activeBoard) {
+                dispatch(setPageTitle(activeBoard.name));
+            }
         }
     }, [data]);
 
