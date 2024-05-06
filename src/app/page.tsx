@@ -7,26 +7,27 @@ import { db } from "./utils/firebaseConfig";
 import { useEffect, useState } from "react";
 import { getSession } from "next-auth/react";
 import { data } from "./utils/data";
+import AddAndEditBoardModal from "./components/AddAndEditBoardModal";
 
 
 export default function Home() {
     const [userDetails, setUserDetails] = useState<{ [key: string]: any }>();
 
-    const getUserSession = async () => {
-        const session = await getSession();
+    const getUserSession = async (): Promise<void> => {
+        const session= await getSession();
         if (session) {
           setUserDetails(session.user);
         }
       };
     
-      const handleAddDoc = async () => {
+      const handleAddDoc = async (): Promise<void> => {
         if (userDetails) {
-    
-          const docRef = collection(db, "users", userDetails.email, "tasks");
-          const getDos = await getDocs(docRef);
-    
-          if (getDos.docs.length > 0) {
-       ;     return;
+
+          const docRef = await collection(db, "users", userDetails.email, "tasks");
+          const querySnapshot = await getDocs(docRef);
+
+          if (querySnapshot.docs.length > 0) {
+            return;
           } else {
             try {
               await addDoc(
@@ -52,6 +53,7 @@ export default function Home() {
         <main className="flex h-full">
             <Sidebar />
             <BoardTasks />
+            <AddAndEditBoardModal />
         </main>
     )
 }
